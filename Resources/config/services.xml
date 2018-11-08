@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="merces_lab.spreadsheet_client.google_sheets_service" class="Google_Service_Sheets" public="false">
+            <factory class="MercesLab\Component\SpreadsheetClient\Google\GoogleFactory" method="createServiceSheets"/>
+            <argument>%merces_lab.spreadsheet_client.google.credentials%</argument>
+        </service>
+        <service id="MercesLab\Component\SpreadsheetClient\Google\GoogleFactory" public="false"/>
+        <service id="MercesLab\Component\SpreadsheetClient\ClientInterface" public="false">
+            <factory class="MercesLab\Component\SpreadsheetClient\Google\GoogleFactory" method="createClient"/>
+            <argument type="service" id="merces_lab.spreadsheet_client.google_sheets_service"/>
+        </service>
+    </services>
+</container>
